@@ -1,15 +1,23 @@
 
-document.querySelector('.test-btn').addEventListener('click',getUrl);
+document.querySelector('.test-btn').addEventListener('click', getUrl);
 
-function getUrl(){
+async function getUrl() {
     var url = document.querySelector('.url-input').value;
     console.log(url);
-    var options={
-        method:'POST',
-        headers:{
-            'Content-Type':'application/json'
+    var data = { "testUrl": url }
+    var options = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
         },
-        body:JSON.stringify(url)
+        body: JSON.stringify(data)
     }
-    fetch('http://localhost:4000',options);
+    try {
+        const res = await fetch('http://localhost:4000/url', options);
+        const data = await res.json();
+        console.log(data);
+    } catch (error) {
+        console.log(error)
+    }
+
 }
